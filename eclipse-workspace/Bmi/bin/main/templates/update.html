@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Result</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- <link href="/css/form.css" th:href="@{/css/form.css}" rel="stylesheet" />
+ -->
+</head>
+
+<body>
+	<!-- 
+	<p th:text="'Date: ' + ${bmiEntity.date}" />
+	<p th:text="'Height: ' + ${bmiEntity.height}" />
+	<p th:text="'Weight: ' + ${bmiEntity.weight}" />
+	<p th:text="'BMI: ' + ${bmiEntity.bmi}" />
+	<p th:text="'memo: ' + ${bmiEntity.memo}" />
+
+	<br>
+	<a href="/list">list</a>
+	<a href="/">back</a> -->
+
+	<form th:action="@{/calc}" th:object="${bmiEntity}" method="post">
+		<div class="container">
+			<div class="col-xs-12">
+				<h1>Let's Update BMI</h1>
+				<br>
+				<p th:text=" *{date}" />
+
+				<br>
+				<div>
+					<p>
+						Height : <input type="number" th:field="*{height}"
+							th:errorclass="fieldError" /> cm <span
+							th:if="${#fields.hasErrors('height')}" th:errors="*{height}"
+							style="color: red"></span>
+					</p>
+				</div>
+				<div>
+					<p>
+						Weight : <input type="number" th:field="*{weight}" /> kg <span
+							th:if="${#fields.hasErrors('weight')}" th:errors="*{height}"
+							style="color: red"></span>
+					</p>
+				</div>
+
+				<p>
+					<input type="submit" value="Submit" /> <input type="reset"
+						value="Reset" />
+				</p>
+
+			</div>
+		</div>
+	</form>
+	<br>
+	<br>
+	<div th:if="${bmiEntity.bmi}">
+		<form th:action="@{/save}" th:object="${bmiEntity}" method="post">
+			<input type="hidden" name="date" th:value="${bmiEntity.date}">
+			<input type="hidden" name="height" th:value="${bmiEntity.height}">
+			<input type="hidden" name="weight" th:value="${bmiEntity.weight}">
+			<input type="hidden" name="bmi" th:value="${bmiEntity.bmi}">
+
+			<p th:text="'BMI : ' + ${bmiEntity.bmi}  " />
+			<p>
+				memo : <input type="text" th:field="*{memo}" />
+			</p>
+			<input type="submit" value="save" />
+			<!-- 	<div th:if="${bmiEntity.okmsg}">
+				<p th:text="${bmiEntity.okmsg}" />
+			</div>
+ -->
+		</form>
+	</div>
+	<a href="/list">list</a>
+</body>
+</html>
+

@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Sign Up</title>
+</head>
+<body>
+	<div>
+		<div>
+			<h1>ユーザー登録画面</h1>
+		</div>
+		<form th:action="@{/signup}" method="post" th:object="${signupForm}">
+			<table>
+				<tr>
+					<th>ユーザーID</th>
+					<td>
+						<div>
+							<input type="text" th:field="*{userId}" />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>パスワード</th>
+					<td>
+						<div>
+							<input type="text" th:field="*{password}" />
+						</div>
+					</td>
+				</tr>
+				<ul>
+					<li th:each="error:${#fields.detailedErrors()}"><span
+						th:text="${error.message}">Error message</span></li>
+				</ul>
+				<button type="submit">ユーザー登録</button>
+		</form>
+	</div>
+</body>
+</html>

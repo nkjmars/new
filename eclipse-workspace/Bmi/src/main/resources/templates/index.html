@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="/css/form.css" th:href="@{/css/form.css}" rel="stylesheet" />
+</head>
+
+<body>
+	<form th:action="@{/calc}" th:object="${bmiEntity}" method="post">
+		
+		<div class="container">
+			<div class="col-xs-12">
+				<h1>Let's calculate BMI</h1>
+				<br>
+				<p th:text=" *{date}" />
+
+				<br>
+				<div>
+					<p>
+						Height : <input type="number" name="num_only" step="0.1"
+s							value="200" th:field="*{height}" th:errorclass="fieldError" />
+						cm <span th:if="${#fields.hasErrors('height')}"
+							th:errors="*{height}" style="color: red"></span>
+					</p>
+				</div>
+				<div>
+					<p>
+						Weight : <input type="number" name="num_only" step="0.1"
+							value="100" th:field="*{weight}" /> kg <span
+							th:if="${#fields.hasErrors('weight')}" th:errors="*{height}"
+							style="color: red"></span>
+					</p>
+				</div>
+
+				<p>
+					<input type="submit" value="Submit" /> <input type="reset"
+						value="Reset" />
+				</p>
+
+			</div>
+		</div>
+	
+	</form>
+	
+	<br>
+	<br>
+	<div th:if="${bmiEntity.bmi}">
+		<form th:action="@{/save}" th:object="${bmiEntity}" method="post">
+			<input type="hidden" name="date" th:value="${bmiEntity.date}">
+			<input type="hidden" name="height" th:value="${bmiEntity.height}">
+			<input type="hidden" name="weight" th:value="${bmiEntity.weight}">
+			<input type="hidden" name="bmi" th:value="${bmiEntity.bmi}">
+
+			<p th:text="'BMI : ' + ${bmiEntity.bmi}  " />
+			<p>
+				memo : <input type="textarea" th:field="*{memo}" />
+			</p>
+			<input type="submit" value="Save" />
+
+		</form>
+	</div>
+	<br>
+	<form action="/list" method="post">
+		<input type="submit" value="List" />
+	</form>
+</body>
+</html>

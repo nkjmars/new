@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>BmiList</title>
+<link href="/css/form.css" th:href="@{/css/form.css}" rel="stylesheet" />
+
+</head>
+<body>
+	<h1>List</h1>
+	<br>
+	<br>
+	<table>
+
+		<thead>
+			<tr>
+				<th>date</th>
+				<th>height</th>
+				<th>weight</th>
+				<th>BMI</th>
+				<th>memo</th>
+
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="bmilist : ${bmilist}">
+				<td th:text="*{bmilist.date}"></td>
+				<td th:text="*{bmilist.height}"></td>
+				<td th:text="*{bmilist.weight}"></td>
+				<td th:text="*{bmilist.bmi}"></td>
+				<td th:text="*{bmilist.memo}"></td>
+				<td><form th:action="@{/delete}" method="post">
+						<input type="submit" value="delete" /><input type="hidden"
+							name="date" th:value="*{bmilist.date}" />
+					</form></td>
+				<td><form th:action="@{/update}" method="post">
+						<input type="submit" value="edit" /><input type="hidden"
+							name="date" th:value="*{bmilist.date}" />
+					</form></td>
+		</tbody>
+
+	</table>
+
+
+	<form action="/login" method="post">
+		<input type="submit" value="Back" />
+	</form>
+
+</body>
+</html>
